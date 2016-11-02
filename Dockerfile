@@ -3,10 +3,16 @@ FROM debian:jessie
 # Create user rtorrent
 RUN useradd -m -s /bin/bash rtorrent && echo rtorrent:new_password | chpasswd
 
+# Add non-free
+RUN (echo "deb http://http.debian.net/debian/ jessie main contrib non-free" > /etc/apt/sources.list) && \
+(echo "deb http://http.debian.net/debian jessie-backports main" > /etc/apt/sources.list.d/backports.list) && \
+(echo "deb http://http.debian.net/debian/ jessie-updates main contrib non-free" >> /etc/apt/sources.list) && \
+(echo "deb http://security.debian.org/ jessie/updates main contrib non-free" >> /etc/apt/sources.list)
+
 # Install all dependencies
 RUN apt-get update && apt-get -y install openssl git apache2 apache2-utils build-essential libsigc++-2.0-dev \
 	libcurl4-openssl-dev automake libtool libcppunit-dev libncurses5-dev libapache2-mod-scgi \
-	php5 php5-curl php5-cli libapache2-mod-php5 tmux unzip libssl-dev curl
+	php5 php5-curl php5-cli libapache2-mod-php5 tmux unzip libssl-dev curl libav-tools git mediainfo unrar unzip
 
 # Compile xmlrpc-c
 RUN cd /tmp \
@@ -46,18 +52,21 @@ RUN cd /tmp \
 	&& mkdir /watch
 
 
-# Install Rutorrent
+# Install ruTorrent from git
 RUN cd /tmp \
-	&& curl -L http://dl.bintray.com/novik65/generic/rutorrent-3.6.tar.gz -o rutorrent-3.6.tar.gz \
-	&& tar -zxvf rutorrent-3.6.tar.gz \
+	&& git clone https://github.com/Novik/ruTorrent.git \
 	&& rm -f /var/www/html/index.html \
-	&& mv -f rutorrent/* /var/www/html/ \
+	&& mv -f ruTorrent/* /var/www/html/ \
 	&& chown -R www-data.www-data /var/www/html/* \
 	&& chmod -R 775 /var/www/html/*
+
 
 COPY 000-default.conf 000-default-auth.conf /etc/apache2/sites-available/
 COPY rtorrent.rc /home/rtorrent/.rtorrent.rc
 COPY plugins/ /var/www/html/plugins/
+RUN cd /var/www/html/plugins/ \
+	&& chown -R www-data.www-data * \
+	&& chmod -R 775 *
 COPY startup.sh /
 
 RUN cd /var/www/html/plugins/theme/themes \

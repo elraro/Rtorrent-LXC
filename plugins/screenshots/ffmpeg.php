@@ -7,9 +7,9 @@ class ffmpegSettings
 	public $hash = "ffmpeg.dat";
 	public $data = array(
 		'exusewidth'=>0,
-		'exfrmwidth'=>320,
-		'exfrmcount'=>3,
-		'exfrmoffs'=>3,
+		'exfrmwidth'=>800,
+		'exfrmcount'=>10,
+		'exfrmoffs'=>10,
 		'exfrminterval'=>5,
 		'explayinterval'=>3,
 		'exformat'=>0,

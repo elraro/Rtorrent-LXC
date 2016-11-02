@@ -1,27 +1,7 @@
-# Rtorrent + Rutorrent
- - `1.0.0`, `latest`
+# rTorrent + ruTorrent
+ - `0.9.6`, `latest`
 
-This is a container running Rtorrent with Rutorrent as WebUI.
-Rutorrent comes with 16 of my favorite plugins.
- - Auto Tools Plugin v3.6
- - CPU Load Plugin v3.6
- - Data Plugin v3.6
- - Erase Data Plugin v3.6
- - Ratio Plugin v3.6
- - Extended Ratio v3.6
- - File Drop v3.6
- - iPad Plugin v3.6
- - Look At v3.6
- - Noty v3.6
- - Retrackers Plugin v3.6
- - Seeding Time Plugin v3.6
- - Show Peers like wTorrent Plugin v3.6
- - Theme Plugin v3.6
- - Throttle Plugin v3.6
- - Track Lables Plugin v3.6
- - Screenshots Plugin 3.7
- - Diskspace Plugin 3.7
- - FlatUI Themes by [exetico](https://github.com/exetico/FlatUI)
+This is a container running rTorrent with ruTorrent as WebUI.
 
 ### Usage
 Simply run
